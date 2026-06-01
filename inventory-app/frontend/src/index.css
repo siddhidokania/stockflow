@@ -622,3 +622,330 @@ tbody td {
   .topbar { padding: 0 16px; }
   .page-content { padding: 16px; }
 }
+
+/* ============================================================
+   SPLASH SCREEN
+   ============================================================ */
+
+/* Root overlay */
+.splash-root {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #060b18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.splash-root.splash-exit {
+  animation: splashExit 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes splashExit {
+  0%   { opacity: 1; transform: scale(1); }
+  60%  { opacity: 1; transform: scale(1.015); }
+  100% { opacity: 0; transform: scale(0.97); pointer-events: none; }
+}
+
+/* Grid background */
+.splash-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(79, 142, 247, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 142, 247, 0.04) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black, transparent);
+}
+
+/* Radial glow */
+.splash-glow {
+  position: absolute;
+  width: 700px; height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    rgba(79, 142, 247, 0.08) 0%,
+    rgba(124, 58, 237, 0.05) 40%,
+    transparent 70%
+  );
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  animation: splashGlowPulse 3s ease-in-out infinite;
+}
+
+@keyframes splashGlowPulse {
+  0%, 100% { opacity: 0.6; transform: translate(-50%, -50%) scale(1); }
+  50%       { opacity: 1;   transform: translate(-50%, -50%) scale(1.05); }
+}
+
+/* Scanlines */
+.splash-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(0, 0, 0, 0.08) 3px,
+    rgba(0, 0, 0, 0.08) 4px
+  );
+  pointer-events: none;
+  opacity: 0.5;
+}
+
+/* Center content */
+.splash-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 52px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Logo area */
+.splash-logo-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  animation: splashLogoIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.splash-logo-up {
+  transform: translateY(-8px);
+}
+
+@keyframes splashLogoIn {
+  from { opacity: 0; transform: scale(0.85) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.splash-logo-icon {
+  width: 72px; height: 72px;
+  background: linear-gradient(135deg, rgba(79,142,247,0.15), rgba(124,58,237,0.1));
+  border: 1px solid rgba(79, 142, 247, 0.25);
+  border-radius: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #4f8ef7;
+  box-shadow:
+    0 0 0 1px rgba(79,142,247,0.08),
+    0 0 40px rgba(79,142,247,0.12),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  position: relative;
+}
+
+.splash-logo-icon::after {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: 21px;
+  background: linear-gradient(135deg, rgba(79,142,247,0.3), transparent 60%);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  padding: 1px;
+  pointer-events: none;
+}
+
+.splash-wordmark {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.splash-brand {
+  font-family: 'DM Mono', monospace;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: 8px;
+  color: #e2e8f8;
+  text-transform: uppercase;
+}
+
+.splash-brand-sub {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 4px;
+  color: #4f8ef7;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Loading panel */
+.splash-panel {
+  width: 340px;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.splash-panel-in {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.splash-panel-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* Progress bar */
+.splash-bar-track {
+  width: 100%;
+  height: 2px;
+  background: rgba(79, 142, 247, 0.1);
+  border-radius: 2px;
+  margin-bottom: 24px;
+  position: relative;
+  overflow: visible;
+}
+
+.splash-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4f8ef7, #7c3aed);
+  border-radius: 2px;
+  transition: width 0.06s linear;
+  position: relative;
+}
+
+.splash-bar-glow {
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px; height: 20px;
+  border-radius: 50%;
+  background: rgba(79, 142, 247, 0.5);
+  filter: blur(8px);
+  transition: left 0.06s linear;
+  pointer-events: none;
+}
+
+/* Steps list */
+.splash-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+
+.splash-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: opacity 0.3s ease;
+}
+
+.splash-step-pending { opacity: 0.2; }
+.splash-step-active  { opacity: 1; }
+.splash-step-done    { opacity: 0.45; }
+
+.splash-step-dot {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 1px solid rgba(79,142,247,0.3);
+  color: #4f8ef7;
+  font-size: 8px;
+}
+
+.splash-step-done .splash-step-dot {
+  background: rgba(16,217,122,0.12);
+  border-color: rgba(16,217,122,0.3);
+  color: #10d97a;
+}
+
+.splash-dot-pulse {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #4f8ef7;
+  display: block;
+  animation: dotPulse 0.8s ease-in-out infinite;
+}
+
+@keyframes dotPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.6); }
+}
+
+.splash-step-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  color: #94a3be;
+  letter-spacing: 0.3px;
+}
+
+.splash-step-active .splash-step-label {
+  color: #e2e8f8;
+}
+
+/* Counter */
+.splash-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 2px;
+  justify-content: flex-end;
+}
+
+.splash-pct {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: #4f8ef7;
+  min-width: 28px;
+  text-align: right;
+  letter-spacing: -0.5px;
+}
+
+.splash-pct-sym {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(79,142,247,0.5);
+}
+
+/* Corner decorations */
+.splash-corner {
+  position: absolute;
+  width: 40px; height: 40px;
+  pointer-events: none;
+  opacity: 0.3;
+}
+
+.splash-corner::before,
+.splash-corner::after {
+  content: '';
+  position: absolute;
+  background: #4f8ef7;
+}
+
+.splash-corner::before { width: 100%; height: 1px; }
+.splash-corner::after  { width: 1px; height: 100%; }
+
+.splash-corner-tl { top: 32px; left: 32px; }
+.splash-corner-tl::before { top: 0; left: 0; }
+.splash-corner-tl::after  { top: 0; left: 0; }
+
+.splash-corner-br { bottom: 32px; right: 32px; }
+.splash-corner-br::before { bottom: 0; right: 0; }
+.splash-corner-br::after  { bottom: 0; right: 0; }
+
+/* App fade-in after splash */
+.app-fadein {
+  animation: appFadeIn 0.5s ease both;
+}
+
+@keyframes appFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import SplashScreen from './pages/SplashScreen';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { Menu } from 'lucide-react';
@@ -24,6 +25,7 @@ function AppLayout() {
   return (
     <div className="app-layout">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
+
       <div className="main-content">
         <header className="topbar">
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
@@ -35,10 +37,13 @@ function AppLayout() {
             >
               <Menu size={18} />
             </button>
+
             <span className="topbar-title">{title}</span>
           </div>
+
           <span className="topbar-badge">StockFlow v1.0</span>
         </header>
+
         <main className="page-content">
           <Routes>
             <Route path="/" element={<Dashboard />} />
@@ -62,10 +67,16 @@ function AppLayout() {
             borderRadius: '10px',
           },
           success: {
-            iconTheme: { primary: 'var(--accent-success)', secondary: 'var(--bg-elevated)' },
+            iconTheme: {
+              primary: 'var(--accent-success)',
+              secondary: 'var(--bg-elevated)',
+            },
           },
           error: {
-            iconTheme: { primary: 'var(--accent-danger)', secondary: 'var(--bg-elevated)' },
+            iconTheme: {
+              primary: 'var(--accent-danger)',
+              secondary: 'var(--bg-elevated)',
+            },
           },
         }}
       />
@@ -74,9 +85,24 @@ function AppLayout() {
 }
 
 export default function App() {
+  const [splashDone, setSplashDone] = useState(false);
+
   return (
-    <BrowserRouter>
-      <AppLayout />
-    </BrowserRouter>
+    <>
+      {!splashDone && (
+        <SplashScreen onComplete={() => setSplashDone(true)} />
+      )}
+
+      <div
+        className={splashDone ? 'app-fadein' : ''}
+        style={{
+          visibility: splashDone ? 'visible' : 'hidden',
+        }}
+      >
+        <BrowserRouter>
+          <AppLayout />
+        </BrowserRouter>
+      </div>
+    </>
   );
 }
