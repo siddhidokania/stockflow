@@ -26,13 +26,19 @@ function AppLayout() {
     <div className="app-layout">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
+
+      {sidebarOpen && (
+        <div
+          className="sidebar-backdrop"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}  
+
       <div className="main-content">
         <header className="topbar">
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
             <button
-              className="btn btn-ghost btn-icon"
-              style={{ display: 'none' }}
-              id="mobile-menu-btn"
+              className="mobile-menu-btn btn-ghost btn-icon"
               onClick={() => setSidebarOpen(true)}
             >
               <Menu size={18} />
