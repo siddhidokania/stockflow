@@ -23,7 +23,9 @@ export default function Sidebar({ open, onClose }) {
       <aside className={`sidebar${open ? ' open' : ''}`}>
         <div className="sidebar-logo">
           <div className="logo-mark">
-            <div className="logo-icon">📦</div>
+            <div className="logo-icon">
+              <Package size={18} />
+            </div>
             <div>
               <div className="logo-text">StockFlow</div>
               <div className="logo-sub">Inventory Suite</div>
