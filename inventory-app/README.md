@@ -30,8 +30,8 @@ A production-ready full-stack application for managing products, customers, and 
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/stockflow.git
-cd stockflow
+git clone https://github.com/siddhidokania/stockflow.git
+cd stockflow/inventory-app
 ```
 
 ### 2. Configure environment
