@@ -2,10 +2,6 @@
 
 StockFlow is a full-stack web app for managing products, customers, and orders, with stock levels that update automatically as orders are placed or cancelled. It has a React frontend, a FastAPI REST backend, and a PostgreSQL database, and the whole stack runs with a single `docker compose up`.
 
-**Live demo:** [stockflow-snowy.vercel.app](https://stockflow-snowy.vercel.app/)
-
-> The backend runs on Render's free tier and sleeps when idle, so the first request can take up to a minute while it wakes up.
-
 ## Features
 
 - **Products:** create, update, and delete products with a unique SKU, price, category, and stock quantity.
